@@ -1,0 +1,38 @@
+# This file goes in your GIT CONFIG REPO
+# It contains the actual configuration for the user-service
+
+server:
+  port: 0 # 0 means Spring Boot will assign a random available port. This is best practice!
+
+# Tell this service where to find the Eureka (Discovery) server
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    # Use IP address instead of hostname
+    prefer-ip-address: true
+    # This makes the service name show up in ALL CAPS in Eureka
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+# Database Connection
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cohero_user_db
+    username: postgres
+    password: 0000 # <-- !!! CHANGE THIS !!!
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update # Automatically creates/updates database tables
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+# Expose the /actuator/refresh endpoint so we can refresh config without restarting
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "refresh, health"
