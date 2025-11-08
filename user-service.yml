@@ -4,7 +4,7 @@ spring:
 
     url: jdbc:postgresql://localhost:5432/cohero_users
     username: postgres # <-- CHANGE THIS
-    password: 0000
+    password: "0000"
     driver-class-name: org.postgresql.Driver
   
   
