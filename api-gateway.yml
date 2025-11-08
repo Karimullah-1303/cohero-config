@@ -1,9 +1,8 @@
 spring:
- cloud: 
-  gateway:
-    routes:
-      -id: user-service
-      uri: lb://USER-SERVICE
-      predicates: 
-         -PATH=/api/users/**, /api/auth/**
-         
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: lb://USER-SERVICE # "lb" means "load balance" via Eureka
+          predicates:
+            - Path=/api/users/, /api/auth/** # Match these URL patterns
